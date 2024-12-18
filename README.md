@@ -61,7 +61,7 @@ In order for this bot to work, you need to create a database in Notion with the 
 - **Title** (Type: Title)
 - **Link** (Type: URL)
 - **Date** (Type: Date)
-- **Content** (Type: Rich Text)
+- **Content** (Type: Text)
 
 ## Troubleshooting
 - **Error: Failed to save the link to Notion**  
