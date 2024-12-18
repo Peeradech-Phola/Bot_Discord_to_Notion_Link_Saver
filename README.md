@@ -1,5 +1,5 @@
 ```markdown
-# Notion Link Saver Bot
+# Bot Discord to Notion Link Saver
 
 This project is a Discord bot that captures URLs shared in a Discord channel and saves them to a Notion database. The bot also captures additional text messages and saves them along with the link.
 
