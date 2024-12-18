@@ -1,9 +1,10 @@
-import os
+from datetime import datetime
+import os  # เพิ่มการนำเข้า datetime หากยังไม่ได้
 import requests
 
-def save_to_notion(author, link, content, date):
+def save_to_notion(author, link, content, tags, date):
     """
-    บันทึก URL, ข้อความ และวันที่ลงใน Notion
+    บันทึก URL, ข้อความ, tag และวันที่ลงใน Notion
     """
     NOTION_API_KEY = os.getenv("NOTION_API_KEY")
     NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
@@ -13,6 +14,9 @@ def save_to_notion(author, link, content, date):
         "Content-Type": "application/json",
         "Notion-Version": "2022-06-28"  # ใช้ API เวอร์ชันล่าสุด
     }
+
+    # เปลี่ยนวันที่ให้เป็นรูปแบบที่ Notion รองรับ
+    formatted_date = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")  # รูปแบบของวันที่ที่ Notion รองรับ
 
     # สร้างข้อมูลสำหรับบันทึกลงในฐานข้อมูล
     page_data = {
@@ -29,7 +33,7 @@ def save_to_notion(author, link, content, date):
                 "url": link
             },
             "Date": {  # Property ชื่อ Date
-                "date": {"start": date}
+                "date": {"start": formatted_date}  # แก้ไขให้ใช้วันที่ที่ถูกต้อง
             },
             "Content": {  # Property ชื่อ Content
                 "rich_text": [
@@ -38,6 +42,9 @@ def save_to_notion(author, link, content, date):
                         "text": {"content": content}
                     }
                 ]
+            },
+            "Tags": {  # Property ชื่อ Tags
+                "multi_select": [{"name": tag} for tag in tags]  # แปลง tag เป็น list ของ dictionary
             }
         }
     }
