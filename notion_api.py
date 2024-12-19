@@ -17,6 +17,7 @@ def save_to_notion(author, link, content, tags, date):
 
     # เปลี่ยนวันที่ให้เป็นรูปแบบที่ Notion รองรับ
     formatted_date = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")  # รูปแบบของวันที่ที่ Notion รองรับ
+    valid_tags = [tag for tag in tags if len(tag) <= 100]
 
     # สร้างข้อมูลสำหรับบันทึกลงในฐานข้อมูล
     page_data = {
@@ -44,7 +45,7 @@ def save_to_notion(author, link, content, tags, date):
                 ]
             },
             "Tags": {  # Property ชื่อ Tags
-                "multi_select": [{"name": tag} for tag in tags]  # แปลง tag เป็น list ของ dictionary
+                "multi_select": [{"name": tag} for tag in valid_tags]   # แปลง tag เป็น list ของ dictionary
             }
         }
     }
