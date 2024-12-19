@@ -110,18 +110,9 @@ Check out this amazing tool! https://example.com
 
 Result in Notion:
 - **Title**: Link shared by Username
+- **Content**: `Check out this amazing tool!`
 - **Link**: `https://example.com`
 - **Tags**: `AI`, `Tech`
-- **Content**: `Check out this amazing tool!`
 - **Date**: Timestamp of when the message was sent.
 
 ---
-
-## Development
-
-Feel free to modify the bot's behavior by editing `bot1.py` or the Notion API integration. 
-
-### Notes
-1. Replace `yourusername/discord-notion-bot` with the actual repository name.
-2. Include clear instructions for setting up and running the bot.
-3. Add badges (optional) for build status, license, or other useful information.
