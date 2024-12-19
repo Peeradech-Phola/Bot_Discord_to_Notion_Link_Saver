@@ -30,6 +30,43 @@ NOTION_DATABASE_ID=your_notion_database_id
 GENAI_API_KEY=your_gemini_api_key
 ```
 
+1. Get DISCORD_BOT_TOKEN:
+
+To get your Discord bot token, follow these steps:
+
+    Go to the Discord Developer Portal.
+    Click on New Application and give it a name.
+    Under your application, navigate to the Bot section.
+    Click on Add Bot and then Yes, do it! to confirm.
+    Scroll down to Token, click Copy. This is your DISCORD_BOT_TOKEN.
+
+2. Get NOTION_API_KEY:
+
+To get your Notion API key, follow these steps:
+
+    Go to the Notion Developers Portal.
+    Click on Create new integration.
+    Give your integration a name and save.
+    After creating the integration, you will get an Integration Token. This is your NOTION_API_KEY.
+    Make sure the integration has access to your workspace.
+
+3. Get NOTION_DATABASE_ID:
+
+To get your Notion database ID, follow these steps:
+
+    Open your Notion workspace and navigate to the database you want to use.
+    In the URL, you will see a long string after your workspace name. This string is your database ID.
+        For example, in the URL https://www.notion.so/yourworkspace/Database-Name-123abc456def, the database ID is 123abc456def.
+
+4. Get GENAI_API_KEY:
+
+To get your Gemini API key, follow these steps:
+
+    Go to the Google Generative AI API Portal.
+    Enable the Gemini API for your Google Cloud project.
+    Create an API key by following the instructions on the API documentation page.
+    Copy the API key and set it as GENAI_API_KEY.
+    
 Replace the placeholders with your actual tokens and IDs.
 
 ---
