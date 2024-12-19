@@ -1,68 +1,90 @@
 ```markdown
-# Bot Discord to Notion Link Saver
+# Discord Bot with Notion Integration
 
-This project is a Discord bot that captures URLs shared in a Discord channel and saves them to a Notion database. The bot also captures additional text messages and saves them along with the link.
+This project is a Discord bot that integrates with Notion to save shared URLs, context, tags, and timestamps. It uses Google's Gemini API to generate accurate tags from the content.
 
 ## Features
 - Detects URLs shared in Discord messages.
-- Saves the link along with the associated text content to a Notion database.
-- Logs the current date and time when the link is saved.
+- Extracts tags using AI-powered tagging (Google Gemini API).
+- Saves content, tags, and URLs to a Notion database.
+- Automatically includes the timestamp.
 
-## Prerequisites
-Before using the bot, make sure you have the following:
-- A Discord bot token.
-- A Notion API key and a Notion database ID.
+---
 
-## Installation
+## Requirements
 
-### Step 1: Clone the repository
-Clone this repository to your local machine using Git:
-
-```bash
-git clone https://github.com/your-username/notion-link-saver.git
-cd notion-link-saver
-```
-
-### Step 2: Install dependencies
-Install the required dependencies using `pip`:
+Make sure you have Python installed. Then, install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 3: Configure environment variables
-Create a `.env` file in the root directory of the project and add your Discord bot token and Notion API details:
+### Environment Variables
 
-```env
-DISCORD_BOT_TOKEN=your_discord_bot_token
+Create a `.env` file with the following variables:
+
+```plaintext
+DISCORD_BOT_TOKEN=your_discord_token
 NOTION_API_KEY=your_notion_api_key
 NOTION_DATABASE_ID=your_notion_database_id
+GENAI_API_KEY=your_gemini_api_key
 ```
 
-### Step 4: Run the bot
-Run the bot using the following command:
+Replace the placeholders with your actual tokens and IDs.
+
+---
+
+## Setup
+
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/discord-notion-bot.git
+cd discord-notion-bot
+```
+
+### Step 2: Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 3: Run the Bot
 
 ```bash
 python bot1.py
 ```
 
-Once the bot is running, it will listen for any messages containing a URL and will save the link along with the associated text content to your Notion database.
+---
 
-## How it works
-1. The bot listens for messages in Discord channels.
-2. When a message containing a URL is detected, the bot:
-   - Extracts the URL from the message.
-   - Extracts any content following the URL.
-   - Saves both the URL and the content to a Notion database.
-   - Saves the current date and time when the link is saved.
-   
-## Notion Database Setup
-In order for this bot to work, you need to create a database in Notion with the following properties:
-- **Title** (Type: Title)
-- **Link** (Type: URL)
-- **Date** (Type: Date)
-- **Content** (Type: Text)
+## Usage
 
-## Troubleshooting
-- **Error: Failed to save the link to Notion**  
-  Ensure that your Notion API key and database ID are correct. Double-check the database property names in Notion to ensure they match the bot's expectations.
+1. Invite the bot to your Discord server.
+2. Send a message containing a URL in any channel the bot has access to.
+3. The bot will:
+   - Extract the URL.
+   - Generate tags using the content of the URL or message.
+   - Save the data (URL, tags, content, and timestamp) to your Notion database.
+
+Example Discord Message:
+```plaintext
+Check out this amazing tool! https://example.com 
+```
+
+Result in Notion:
+- **Title**: Link shared by Username
+- **Link**: `https://example.com`
+- **Tags**: `AI`, `Tech`
+- **Content**: `Check out this amazing tool!`
+- **Date**: Timestamp of when the message was sent.
+
+---
+
+## Development
+
+Feel free to modify the bot's behavior by editing `bot1.py` or the Notion API integration. 
+
+### Notes
+1. Replace `yourusername/discord-notion-bot` with the actual repository name.
+2. Include clear instructions for setting up and running the bot.
+3. Add badges (optional) for build status, license, or other useful information.
