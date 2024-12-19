@@ -43,7 +43,7 @@ NOTION_DATABASE_ID=your_notion_database_id
 Run the bot using the following command:
 
 ```bash
-python bot.py
+python bot1.py
 ```
 
 Once the bot is running, it will listen for any messages containing a URL and will save the link along with the associated text content to your Notion database.
