@@ -110,20 +110,41 @@ async def on_message(message):
     if message.author.bot:
         return  # ไม่ตอบสนองต่อข้อความจากบอท
 
-    # ดึง URL จากข้อความ
-    link = extract_url(message.content)
-    if link:  # ตรวจสอบว่าเจอ URL หรือไม่
-        author = message.author.name
-        tags = extract_tags_with_ai_google(message.content, link)  # ใช้ฟังก์ชันใหม่
-        content = extract_content_without_tags(message.content, tags)  # ดึงข้อความที่เหลือหลังจากลบ tag
-        date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # วันที่และเวลา
+    # ตรวจสอบว่าเป็นข้อความจาก DM หรือไม่
+    if message.guild is None:  # ถ้าไม่มี `guild` แปลว่าเป็น DM
+        # ดึง URL จากข้อความ
+        link = extract_url(message.content)
+        if link:  # ตรวจสอบว่าเจอ URL หรือไม่
+            author = message.author.name
+            tags = extract_tags_with_ai_google(message.content, link)  # ใช้ฟังก์ชันสร้างแท็ก
+            content = extract_content_without_tags(message.content, tags)  # ดึงข้อความที่เหลือหลังจากลบแท็ก
+            date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # วันที่และเวลา
 
-        try:
-            # บันทึกข้อมูลทั้งหมดลงใน Notion
-            save_to_notion(author, link, content, tags, date)
-            await message.channel.send(f"✅ Link from {author} has been saved to Notion.")
-        except Exception as e:
-            await message.channel.send(f"❌ Failed to save the link to Notion. Error: {e}")
+            try:
+                # บันทึกข้อมูลทั้งหมดลงใน Notion
+                save_to_notion(author, link, content, tags, date)
+                await message.author.send(f"✅ Link has been saved to Notion.")  # ตอบกลับใน DM
+            except Exception as e:
+                await message.author.send(f"❌ Failed to save the link to Notion. Error: {e}")
+            except discord.Forbidden:  # เมื่อส่ง DM ไม่สำเร็จ
+                print(f"Cannot send DM to {message.author.name}.")
+        else:
+            await message.author.send("❌ No valid URL found in your message.")  # แจ้งเมื่อไม่พบ URL
+    else:
+        # ดำเนินการปกติสำหรับข้อความในเซิร์ฟเวอร์
+        link = extract_url(message.content)
+        if link:
+            author = message.author.name
+            tags = extract_tags_with_ai_google(message.content, link)
+            content = extract_content_without_tags(message.content, tags)
+            date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            try:
+                save_to_notion(author, link, content, tags, date)
+                await message.channel.send(f"✅ Link from {author} has been saved to Notion.")
+            except Exception as e:
+                await message.channel.send(f"❌ Failed to save the link to Notion. Error: {e}")
+
 
 
 # รันบอท
